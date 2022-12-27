@@ -1,0 +1,24 @@
+{
+  "name": "shopping_csrt",
+  "version": "1.0.0",
+  "description": "developing a sample project for shopping",
+  "main": "Main.js",
+  "scripts": {
+    "test": "nodmeon Main.js"
+  },
+  "keywords": [
+    "shopping"
+  ],
+  "author": "hijack",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "mongodb": "^4.13.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
+    "pm2": "^5.2.2"
+  }
+}
