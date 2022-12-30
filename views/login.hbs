@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
- <link rel="stylesheet" href="/login.css" type="text/css">
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" href="/login.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <section>
-    <h1>Login</h1>
-    <div class="login-form">
-      <h4>Username</h4>
-      <div class="username-input">
-        <i class="fas fa-user"></i>
-        <input type="text" placeholder="Type your username">
-      </div>
-      <h4>Password</h4>
-      <div class="password-input">
-        <i class="fas fa-lock"></i>
-        <input type="text" placeholder="Type your password">
-      </div>
-      <p>Forgot password?</p>
-    </div>
-    <button class="login-btn">
-      LOGIN
-    </button>
-    <div class="alternative-signup">
-      <p>Not a member? <span>Sign-up</span></p>
-    </div>
-  </section>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form>
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" name="username" placeholder="User name" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Sign up</button>
+				</form>
+			</div>
+
+			<div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
 </body>
 </html>
