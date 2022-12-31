@@ -3,7 +3,6 @@ const express = require("express")
 const router = express.Router()
 const mongo = require('../connection/database')
 const parse = require("body-parser")
-const { default: mongoose } = require("mongoose")
 
 
 router.use(parse.urlencoded({extended:true}))
@@ -21,20 +20,43 @@ router.post('/signup',async(req,res)=>{
             email:req.body.email,
             password:req.body.password
         }
-        const checkUserExist = await mongo.collections.findOne({email:req.body.email})
+        console.log(data)
+
+        const checkUserExists = await mongo.collection.findOne({email:req.body.email})
         try {
-            if(checkUserExist === null){
-                await mongodb.collections.inserMany([data])
-                res.send("sucess fully created the account")
-            }else if(checkUserExist.email === req.body.email){
-                res.send("the user already exists")
+            if(checkUserExists === null){
+                await mongo.collection.insertMany([data])
+                res.send("data entered succes fully ")
+            }else if(checkUserExists.email == req.body.email){
+                res.send("user with email already exists")
             }
         } catch (error) {
             res.send("some error occured")
         }
-      console.log(data)
+
+     
 })
 
+router.get('/login',(req,res)=>{
+    res.render('login')
+})
+
+
+router.post('/login',async(req,res)=>{
+    const data = {
+        email : req.body.email,
+        password: req.body.password
+    }
+    console.log(data)
+    const checkloginData = await mongo.login.findOne({email:req.body.email})
+    try {
+        if(checkloginData.email === req.body.email && checkloginData.password === req.body.password){
+            res.send("login sucessfull")
+        }
+    } catch (error) {
+        res.send("error login")
+    }
+})
 
 
 
