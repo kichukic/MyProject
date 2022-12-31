@@ -48,7 +48,7 @@ router.post('/login',async(req,res)=>{
         password: req.body.password
     }
     console.log(data)
-    const checkloginData = await mongo.login.findOne({email:req.body.email})
+    const checkloginData = await mongo.collection.findOne({email:req.body.email})
     try {
         if(checkloginData.email === req.body.email && checkloginData.password === req.body.password){
             res.send("login sucessfull")

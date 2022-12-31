@@ -24,19 +24,19 @@ const signup_schema = mongoose.Schema({
     }
 })
 
-const login_Schema = mongoose.Schema({
-    email:{
-        type:String,
-        required:true
-    },
-    password:{
-        type:String,
-        required:true
-    }
-})
+// const login_Schema = mongoose.Schema({
+//     email:{
+//         type:String,
+//         required:true
+//     },
+//     password:{
+//         type:String,
+//         required:true
+//     }
+// })
 
 const collection = new mongoose.model("signUPData",signup_schema)
-const login = new mongoose.model("login_data",login_Schema)
+//const login = new mongoose.model("login_data",login_Schema)
 
 
-module.exports =  collection,login
+module.exports =  collection
