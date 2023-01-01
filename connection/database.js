@@ -34,7 +34,6 @@ const signup_schema = mongoose.Schema({
 //         required:true
 //     }
 // })
-
 const collection = new mongoose.model("signUPData",signup_schema)
 //const login = new mongoose.model("login_data",login_Schema)
 

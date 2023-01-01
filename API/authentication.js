@@ -5,7 +5,7 @@ const mongo = require('../connection/database')
 const parse = require("body-parser")
 const bcrypt =require("bcrypt")
 const saltrounds = 10;
-const mypass = req.body.password
+//const mypass = req.body.password
 
 
 router.use(parse.urlencoded({extended:true}))
@@ -17,18 +17,19 @@ router.get('/signup',(req,res)=>{
     res.render('login')
 })
 
-router.post('/signup',async(req,res)=>{
-        const data = {
-            username: req.body.username,
-            email:req.body.email,
-            password:req.body.password
-        }
-        console.log(data)
 
-        const checkUserExists = await mongo.collection.findOne({email:req.body.email})
+
+router.post('/signup',async(req,res)=>{
+   const {username, email, password} = req.body
+        const checkUserExists = await mongo.collection.findOne({email})
+        console.log(checkUserExists)
+
+
         try {
             if(checkUserExists === null){
-                await mongo.collection.insertMany([data])
+                const hash =await bcrypt.hash(password,10)
+                console.log(hash)
+                await mongo.collection.insertMany([{username: username,email:email,password:hash}])
                 res.send("data entered succes fully ")
             }else if(checkUserExists.email == req.body.email){
                 res.send("user with email already exists")
@@ -45,23 +46,36 @@ router.get('/login',(req,res)=>{
 })
 
 
+// router.post('/login',async(req,res)=>{
+//   const {email,password} = req.body
+//     console.log(data)
+//     const checkloginData = await mongo.collection.findOne({email:email})
+//     try {
+//         if(checkloginData.email === req.body.email && checkloginData.password === req.body.password){
+//             res.send("login sucessfull")
+//         }
+//     } catch (error) {
+//         res.send("error login")
+//     }
+// })
+
 router.post('/login',async(req,res)=>{
-    const data = {
-        email : req.body.email,
-        password: req.body.password
-    }
-    console.log(data)
-    const checkloginData = await mongo.collection.findOne({email:req.body.email})
-    try {
-        if(checkloginData.email === req.body.email && checkloginData.password === req.body.password){
-            res.send("login sucessfull")
+      const {email,password} = req.body
+      console.log(email,password)
+        const checkloginData = await mongo.collection.findOne({email:email})
+        const passmatch = await bcrypt.compare(password,checkloginData.password)
+       // console.log(checkloginData)
+       try {
+        if(email== checkloginData.email && passmatch === true){
+            res.send("sucess login")
+        }else if(email !== checkloginData.email){
+            res.send ("no user exists with this email: " + email)
         }
-    } catch (error) {
-        res.send("error login")
-    }
-})
-
-
-
+       } catch (error) {
+        res.send("some error occured whilw login")
+       }
+    })
 
 module.exports = router;
+
+
