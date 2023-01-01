@@ -3,6 +3,9 @@ const express = require("express")
 const router = express.Router()
 const mongo = require('../connection/database')
 const parse = require("body-parser")
+const bcrypt =require("bcrypt")
+const saltrounds = 10;
+const mypass = req.body.password
 
 
 router.use(parse.urlencoded({extended:true}))
@@ -57,6 +60,7 @@ router.post('/login',async(req,res)=>{
         res.send("error login")
     }
 })
+
 
 
 
