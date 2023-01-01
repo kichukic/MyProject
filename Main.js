@@ -25,5 +25,5 @@ app.listen(4001,((err,data)=>{
     if(err){
         console.log("error occure",err)
     }
-    console.log(`successfully connected to servers`)
+    console.log(`successfully connected to servers on port 4001`)
 }))
