@@ -4,8 +4,8 @@ const router = express.Router()
 const mongo = require('../connection/database')
 const parse = require("body-parser")
 const bcrypt =require("bcrypt")
-const saltrounds = 10;
-//const mypass = req.body.password
+const session = require("express-session")
+
 
 router.use(parse.urlencoded({extended:true}))
 router.use(parse.json())
@@ -40,20 +40,9 @@ router.get('/login',(req,res)=>{
 })
 
 
-// router.post('/login',async(req,res)=>{
-//   const {email,password} = req.body
-//     console.log(data)
-//     const checkloginData = await mongo.collection.findOne({email:email})
-//     try {
-//         if(checkloginData.email === req.body.email && checkloginData.password === req.body.password){
-//             res.send("login sucessfull")
-//         }
-//     } catch (error) {
-//         res.send("error login")
-//     }
-// })
 
 router.post('/login',async(req,res)=>{
+    
       const {email,password} = req.body
       mongo.collection.findOne({email},(err,data)=>{
         if(err){
@@ -64,18 +53,14 @@ router.post('/login',async(req,res)=>{
         }
          bcrypt.compare(password,data.password,(err,data)=>{
             if(err){
-                res.send("password dosent match")
+                res.send("some errors occured")
             }if(data){
                 res.send("login success")
             }else{
                 res.send('password dosent match')
             }
         })
-
       })
-      
-       
-      
     })
 
 
