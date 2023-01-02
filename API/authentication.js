@@ -21,9 +21,6 @@ router.get('/signup',(req,res)=>{
 router.post('/signup',async(req,res)=>{
    const {username, email, password} = req.body
         const checkUserExists = await mongo.collection.findOne({email})
-        console.log(checkUserExists)
-
-
         try {
             if(checkUserExists === null){
                 const hash =await bcrypt.hash(password,10)
@@ -36,8 +33,6 @@ router.post('/signup',async(req,res)=>{
         } catch (error) {
             res.send("some error occured")
         }
-
-     
 })
 
 router.get('/login',(req,res)=>{
@@ -60,21 +55,31 @@ router.get('/login',(req,res)=>{
 
 router.post('/login',async(req,res)=>{
       const {email,password} = req.body
-      console.log(email,password)
-        const checkloginData = await mongo.collection.findOne({email:email})
-        const passmatch = await bcrypt.compare(password,checkloginData.password)
-       // console.log(checkloginData)
-       try {
-        if(email== checkloginData.email && passmatch === true){
-            res.send("sucess login")
-        }else if(email !== checkloginData.email){
-            res.send ("no user exists with this email: " + email)
+      mongo.collection.findOne({email},(err,data)=>{
+        if(err){
+            res.send("error occured")
         }
-       } catch (error) {
-        res.send("some error occured whilw login")
-       }
+        if(!data){
+            res.send("error no email found")
+        }
+         bcrypt.compare(password,data.password,(err,data)=>{
+            if(err){
+                res.send("password dosent match")
+            }if(data){
+                res.send("login success")
+            }else{
+                res.send('password dosent match')
+            }
+        })
+
+      })
+      
+       
+      
     })
 
+
 module.exports = router;
+
 
 
