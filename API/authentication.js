@@ -7,7 +7,6 @@ const bcrypt =require("bcrypt")
 const saltrounds = 10;
 //const mypass = req.body.password
 
-
 router.use(parse.urlencoded({extended:true}))
 router.use(parse.json())
 

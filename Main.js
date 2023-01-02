@@ -27,9 +27,10 @@ app.set("view engine","hbs")
 
 
 
+
 app.listen(port,((err,data)=>{
     if(err){
         console.log("error occure",err)
     }
-    console.log(`successfully connected to servers`)
+    console.log(`successfully connected to servers on port ${port}`)
 }))
