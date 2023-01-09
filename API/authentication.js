@@ -11,6 +11,9 @@ router.use(parse.urlencoded({extended:true}))
 router.use(parse.json())
 
 
+router.get('/', (req, res) =>{
+    res.render('login')
+})
 
 router.get('/signup',(req,res)=>{
     res.render('login')
