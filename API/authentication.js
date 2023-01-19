@@ -10,6 +10,7 @@ const session = require("express-session")
 router.use(parse.urlencoded({extended:true}))
 router.use(parse.json())
 
+console.log("starting>>>>")
 
 router.get('/', (req, res) =>{
     res.render('login')
